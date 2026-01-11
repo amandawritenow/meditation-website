@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amanda Right Now - Meditation & Mindfulness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #F9F6F1;
+            --warm-sand: #E8DCC4;
+            --soft-clay: #D4B895;
+            --earth-brown: #8B7355;
+            --deep-earth: #5C4A3D;
+            --sage: #A5B5A3;
+            --soft-sage: #C8D5C7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--deep-earth);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Organic background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(165, 181, 163, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 184, 149, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: var(--earth-brown);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            color: var(--earth-brown);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--sage);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--sage);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.3s forwards;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            color: var(--earth-brown);
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            letter-spacing: 0.02em;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--deep-earth);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            letter-spacing: 0.05em;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--sage);
+            color: white;
+            border-color: var(--sage);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--sage);
+            border-color: var(--sage);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--earth-brown);
+            border-color: var(--earth-brown);
+        }
+
+        .btn-secondary:hover {
+            background: var(--earth-brown);
+            color: var(--cream);
+            transform: translateY(-2px);
+        }
+
+        /* Decorative breathing circle */
+        .breathing-circle {
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 1px solid var(--soft-sage);
+            opacity: 0.4;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        .breathing-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            border: 1px solid var(--sage);
+            opacity: 0.6;
+            animation: breathe 4s ease-in-out infinite 0.5s;
+        }
+
+        /* About Preview Section */
+        .about-preview {
+            padding: 6rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.6s forwards;
+        }
+
+        .about-text h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--earth-brown);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--deep-earth);
+            font-weight: 300;
+        }
+
+        .about-image {
+            position: relative;
+            aspect-ratio: 3/4;
+            background: var(--warm-sand);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--sage);
+            border-radius: 2px;
+            z-index: -1;
+        }
+
+        /* Offerings Section */
+        .offerings {
+            background: linear-gradient(to bottom, transparent, rgba(200, 213, 199, 0.1), transparent);
+            padding: 6rem 5%;
+            opacity: 0;
+            animation: fadeIn 1.2s ease 0.9s forwards;
+        }
+
+        .offerings h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--earth-brown);
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: 0.02em;
+        }
+
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .offering-card {
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 2px;
+            border: 1px solid rgba(165, 181, 163, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .offering-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(92, 74, 61, 0.1);
+        }
+
+        .offering-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--earth-brown);
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .offering-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--deep-earth);
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(165, 181, 163, 0.2);
+            margin-top: 6rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            font-weight: 300;
+            letter-spacing: 0.03em;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem 5%;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            .about-preview {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .breathing-circle {
+                display: none;
+            }
+
+            .offerings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AMANDA RIGHT NOW</div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#offerings">Offerings</a>
+            <a href="#contact">Connect</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find stillness.<br>Reconnect with yourself.</h1>
+            <p class="subtitle">Certified meditation teacher guiding you toward presence, peace, and authentic living through mindful practice.</p>
+            <div class="cta-container">
+                <a href="#offerings" class="btn btn-primary">Explore Offerings</a>
+                <a href="#contact" class="btn btn-secondary">Join Free Monthly Group</a>
+            </div>
+        </div>
+        <div class="breathing-circle"></div>
+    </section>
+
+    <section class="about-preview" id="about">
+        <div class="about-text">
+            <h2>A practice rooted in authenticity</h2>
+            <p>I'm Amanda, a certified meditation teacher with a passion for helping people discover the transformative power of mindfulness.</p>
+            <p>With certifications in health, mindfulness, and meditation, I bring a warm, inclusive approach to teaching that honors neurodiversity and meets you exactly where you are.</p>
+            <p>Whether you're new to meditation or deepening an existing practice, I create a welcoming space for exploration, growth, and genuine connection with yourself.</p>
+        </div>
+        <div class="about-image">
+            <!-- Image placeholder - you can add your photo here -->
+        </div>
+    </section>
+
+    <section class="offerings" id="offerings">
+        <h2>Ways to Practice Together</h2>
+        <div class="offerings-grid">
+            <div class="offering-card">
+                <h3>Free Monthly Group Meditation</h3>
+                <p>Join our welcoming community for a guided group meditation session. A space to practice together, share in collective energy, and build your meditation habit with support.</p>
+            </div>
+            <div class="offering-card">
+                <h3>1-on-1 Meditation Coaching</h3>
+                <p>Personalized guidance tailored to your unique needs, challenges, and goals. Together we'll develop a sustainable practice that fits your life and supports your wellbeing.</p>
+            </div>
+            <div class="offering-card">
+                <h3>Guided Meditations & Resources</h3>
+                <p>Access a growing library of recorded meditations, mindfulness exercises, and resources to support your journey toward greater presence and peace.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>Ready to begin? Reach out at hello@amandarightnow.com</p>
+        <p style="margin-top: 2rem; opacity: 0.7;">© 2026 Amanda Right Now. All rights reserved.</p>
+    </footer>
+</body>
+</html>
